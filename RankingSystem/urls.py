@@ -26,13 +26,14 @@ router.register(r'question', QuestionViewSet)
 router.register(r'school', SchoolViewSet)
 router.register(r'user', UserViewSet)
 
+from user.views import userView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include('rest_framework.urls')),
 
     path("api/register/", RegisterView.as_view()),
 
-
+    path("jinja/user/", userView),
     path("", include(router.urls)),
 
 ]

@@ -34,4 +34,8 @@ class RegisterView(APIView):
         return Response(data)
 
 
-
+import requests
+from django.shortcuts import render
+def userView(request):
+    user_list = requests.get('http://127.0.0.1:8000/user/').json()
+    return render(request, 'user.html', context={'user': user_list})

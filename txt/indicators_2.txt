@@ -1,0 +1,6 @@
+Assessment of teaching staff|0.6|Conditions for obtaining a quality education|
+Assessment of the educational environment|0.4|Conditions for obtaining a quality education|
+Evaluation of the preparation of students for the UNT|0.4|Level of preparation of competitive graduates|
+Assessment of the education system|0.6|Level of preparation of competitive graduates|
+Assessment of social life|0.6|Level of social and club activities|
+Evaluation of club activities|0.4|Level of social and club activities|

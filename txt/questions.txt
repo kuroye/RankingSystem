@@ -1,0 +1,22 @@
+Is the teacher an educator|0.25|S|The qualities of a teacher through the eyes of a student|
+Attention to the difficult student|0.15|S|The qualities of a teacher through the eyes of a student|
+Teacher time management (How much time the teacher misses, how quickly he checks assignments)|0.25|S|The qualities of a teacher through the eyes of a student|
+Teacher approaches (Explains, gives presentations, teaches through practice?)|0.25|T|The qualities of a teacher through the eyes of a student|
+Relationship with parents|0.1|P|The qualities of a teacher through the eyes of a student|
+Teacher error rate|0.6|S|Teacher qualification|
+Qualification category|0.4|T|Teacher qualification|
+Protection|0.2|P|School grounds safety|
+CPR|0.2|P|School grounds safety|
+Fire safety|0.2|S|School grounds safety|
+Video surveillance|0.25|S|School grounds safety|
+Bullying|0.15|S|School grounds safety|
+Quality of desks, boards?|0.2|S|School facilities|
+Availability of scientific equipment (meters, flasks, microscopes)|0.2|T|School facilities|
+Availability of sports equipment|0.15|T|School facilities|
+Availability of computers in computer science classes|0.2|T|School facilities|
+Availability of Internet active boards|0.15|T|School facilities|
+Internet connection|0.1|S|School facilities|
+What is your attitude towards your surroundings?|0.5|S|Internal social life|
+Student government|0.5|S|Internal social life|
+Camps for students|0.5|S|External social life|
+School cultural trips|0.5|S|External social life|

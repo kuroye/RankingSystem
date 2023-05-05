@@ -18,22 +18,44 @@ from django.urls import path, include
 from rest_framework import routers
 from survey.views import SurveyViewSet, QuestionViewSet
 from school.views import SchoolViewSet
-from user.views import UserViewSet, RegisterView
+# from user.views import UserViewSet
+
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
 
 router = routers.DefaultRouter()
 router.register(r'survey', SurveyViewSet)
 router.register(r'question', QuestionViewSet)
 router.register(r'school', SchoolViewSet)
-router.register(r'user', UserViewSet)
+# router.register(r'user', UserViewSet)
 
-from user.views import userView
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="Snippets API",
+      default_version='v1',
+      description="Test description",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@snippets.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=[permissions.AllowAny],
+)
+
+
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include('rest_framework.urls')),
+    path("rest_framework/", include('rest_framework.urls')),
+    path("api/", include(router.urls)),
+    path('api/auth/', include('user.urls')),
 
-    path("api/register/", RegisterView.as_view()),
-
-    path("jinja/user/", userView),
-    path("", include(router.urls)),
+    # path("", include(router.urls)),
+    # path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    
+    path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 
 ]

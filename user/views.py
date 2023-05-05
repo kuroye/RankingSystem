@@ -1,41 +1,78 @@
-from .models import User
 from rest_framework import viewsets
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .serializers import UserSerializer, RegisterSerializer
+from rest_framework import generics, permissions
+
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import UserSerializer, RegisterSerializer, CustomTokenObtainPairSerializer
 from utils import auth
+from django.contrib.auth import get_user_model
+
+
+from rest_framework.permissions import AllowAny
+from .permissions import IsAdminUserOrSelf 
+
+
+
 # Create your views here.
 #
-class UserViewSet(viewsets.ModelViewSet):
 
+User = get_user_model()
+
+# class UserViewSet(viewsets.ModelViewSet):
+
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+
+#     def retrieve(self, request, *args, **kwargs):
+#         response = super(*args, **kwargs)
+#         print('res: ', response)
+#         return response
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = [AllowAny]
+
+    # def post(self, request):
+    #     serializer = UserSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         user = serializer.save()
+    #         if user:
+    #             payload = api_settings.JWT_PAYLOAD_HANDLER(user)
+    #             token = api_settings.JWT_ENCODE_HANDLER(payload)
+    #             return Response({'token': token}, status=201)
+    #     return Response(serializer.errors, status=400)
+  
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
+
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-    def retrieve(self, request, *args, **kwargs):
-        response = super(*args, **kwargs)
-        print('res: ', response)
-        return response
+    permission_classes = (IsAdminUserOrSelf,)
 
 
-class RegisterView(APIView):
-
-    def post(self, request):
-
-        data = request.data
-        register_serializer = RegisterSerializer(data=data)
-        register_serializer.is_valid(raise_exception=True)
-
-        user_serializer = UserSerializer(data=data)
-        user_serializer.is_valid(raise_exception=True)
-        user_serializer.save()
-        data = user_serializer.data
-        data['token'] = auth.get_jwt(data.get('pk'))
-
-        return Response(data)
+class AllUserView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.IsAdminUser,)
 
 
-import requests
-from django.shortcuts import render
-def userView(request):
-    user_list = requests.get('http://127.0.0.1:8000/user/').json()
-    return render(request, 'user.html', context={'user': user_list})
+# class LoginView(APIView):
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         email = request.data.get('email')
+#         password = request.data.get('password')
+#         print(email)
+#         print(password)
+#         user = authenticate(request, email=email, password=password)
+#         if user:
+#             login(request, user)
+#             payload = api_settings.JWT_PAYLOAD_HANDLER(user)
+#             token = api_settings.JWT_ENCODE_HANDLER(payload)
+#             return Response({'token': token}, status=200)
+#         return Response({'error': 'Invalid credentials'}, status=401)
+

@@ -3,31 +3,62 @@ from school.models import School
 from django.dispatch import receiver
 from django.db.models.signals import pre_save
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 # Create your models here.
 
-class User(models.Model):
 
-    POSITION = [
+class UserManager(BaseUserManager):
+
+    use_in_migration = True
+
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Email is Required')
+        user = self.model(email=self.normalize_email(email), **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff = True')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser = True')
+
+        return self.create_user(email, password, **extra_fields)
+
+
+POSITION = [
         ('S', 'School Student'),
         ('T', 'Teacher'),
         ('P', 'Parent'),
-        ('U', 'Graduate')
     ]
-    email = models.CharField(max_length=254, unique=True)
-    fullname = models.CharField(max_length=128)
-    password = models.CharField(max_length=254)
+
+class User(AbstractUser):
+
     position = models.CharField(max_length=1, choices=POSITION)
+    email = models.CharField(max_length=254, unique=True, blank=False, null=False)
 
+    objects = UserManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+    
     def __str__(self):
-        return self.fullname + ' ' + self.email
+        return self.username + ' ' + self.email
 
 
-@receiver(pre_save, sender=User)
-def user_pre_save(sender, instance, **kwargs):
-    '''Пайдаланушыны сақтамас бұрын құпия сөзді шифрлау'''
-    # pbkdf2_sha256$
-    if not instance.password.startswith('pbkdf2_sha256$'):
-        instance.password = make_password(instance.password)
+
+# @receiver(pre_save, sender=User)
+# def user_pre_save(sender, instance, **kwargs):
+#     '''Пайдаланушыны сақтамас бұрын құпия сөзді шифрлау'''
+#     # pbkdf2_sha256$
+#     if not instance.password.startswith('pbkdf2_sha256$'):
+#         instance.password = make_password(instance.password)
 
 
 

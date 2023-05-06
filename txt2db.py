@@ -1,5 +1,6 @@
 import os
 
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RankingSystem.settings")
 
 import django
@@ -55,16 +56,16 @@ if __name__ == "__main__":
     while True:
         a = int(input('1-Indicator I\n2-Indicator II\n3-Indicator III\n4-Questions\n5-quit\n'))
         if a == 1:
-            w_2_db_Ind1('../txt/indicators_1.txt')
+            w_2_db_Ind1('./txt/indicators_1.txt')
             print('IMPORT INDICATOR1 DONE!')
         elif a == 2:
-            w_2_db_Ind2('../txt/indicators_2.txt')
+            w_2_db_Ind2('./txt/indicators_2.txt')
             print('IMPORT INDICATOR2 DONE!')
         elif a == 3:
-            w_2_db_Ind3('../txt/indicators_3.txt')
+            w_2_db_Ind3('./txt/indicators_3.txt')
             print('IMPORT INDICATOR3 DONE!')
         elif a == 4:
-            w_2_db_Questions('../txt/questions.txt')
+            w_2_db_Questions('./txt/questions.txt')
             print('IMPORT QUESTIONS DONE!')
         elif a == 5:
             break

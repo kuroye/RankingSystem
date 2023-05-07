@@ -42,6 +42,7 @@ class User(AbstractUser):
 
     position = models.CharField(max_length=1, choices=POSITION)
     email = models.CharField(max_length=254, unique=True, blank=False, null=False)
+    school = models.OneToOneField(School, on_delete=models.CASCADE, blank=True, null=True)
 
     objects = UserManager()
 
@@ -50,16 +51,6 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.username + ' ' + self.email
-
-
-
-# @receiver(pre_save, sender=User)
-# def user_pre_save(sender, instance, **kwargs):
-#     '''Пайдаланушыны сақтамас бұрын құпия сөзді шифрлау'''
-#     # pbkdf2_sha256$
-#     if not instance.password.startswith('pbkdf2_sha256$'):
-#         instance.password = make_password(instance.password)
-
 
 
 

@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from survey.views import SurveyViewSet, QuestionViewSet
+# from survey.views import SurveyViewSet, QuestionViewSet
 from school.views import SchoolViewSet
 # from user.views import UserViewSet
 
@@ -25,10 +25,10 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
 
-router = routers.DefaultRouter()
-router.register(r'survey', SurveyViewSet)
-router.register(r'question', QuestionViewSet)
-router.register(r'school', SchoolViewSet)
+# router = routers.DefaultRouter()
+# router.register(r'survey', SurveyViewSet)
+# router.register(r'question', QuestionViewSet)
+# router.register(r'school', SchoolViewSet)
 # router.register(r'user', UserViewSet)
 
 
@@ -48,9 +48,10 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("rest_framework/", include('rest_framework.urls')),
-    path("api/", include(router.urls)),
+    # path("rest_framework/", include('rest_framework.urls')),
+    # path("api/", include(router.urls)),
     path('api/auth/', include('user.urls')),
+    path('api/survey/', include('survey.urls')),
 
     # path("", include(router.urls)),
     # path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),

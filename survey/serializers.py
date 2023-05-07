@@ -1,26 +1,55 @@
-from .models import Survey, Question, IndicatorIII
+from .models import Survey, Question, IndicatorIII, Response
 from rest_framework import serializers
 from user.serializers import UserSerializer
 from school.serializers import SchoolSerializer
 
-class SurveySerializer(serializers.ModelSerializer):
-    # school_name = SchoolSerializer()
-    # school_id = serializers.RelatedField(source='School.school', read_only=True)
 
-    user = UserSerializer()
-    school = SchoolSerializer()
+class ResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Response
+        fields = ['id', 'score', 'question', 'survey_id']
+
+class SurveySerializer(serializers.ModelSerializer):
+    school = serializers.ReadOnlyField(source='school.id')
+    user = serializers.ReadOnlyField(source='user.id')
+
+    responses = ResponseSerializer(many=True)
+
 
     class Meta:
         model = Survey
-        fields = ['url', 'id', 'score', 'question_id', 'user', 'school']
-        # fields = '__all__'
-        # read_only_fields = ('id', 'user')
+        fields = ['id', 'user', 'school', 'responses' ]
 
-class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+    def to_representation(self, instance):
+
+        resposes = Response.objects.filter(survey=instance)
+        instance.responses = resposes
+
+        return super().to_representation(instance)
+
+
+    def create(self, validated_data):
+
+        if validated_data.get('school') is None:
+            raise serializers.ValidationError({"error": "There is no school"})
+
+        responses_data = validated_data.pop('responses')
+        survey = Survey.objects.create(**validated_data)
+
+            
+        for response_data in responses_data:
+
+            Response.objects.create(survey=survey, **response_data)
+
+        survey.responses = responses_data
+        return survey
+
+
+class QuestionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['url', 'id', 'content', 'weight', ]
+        fields = ['id', 'content', 'weight', 'type', 'indicatorIII']
 
 class IndicatorIIISerializer(serializers.HyperlinkedModelSerializer):
 

@@ -40,8 +40,7 @@ class Question(models.Model):
     TYPE = [
         ('S', 'School Student'),
         ('T', 'Teacher'),
-        ('P', 'Parent'),
-        ('U', 'Graduate')
+        ('P', 'Parent')
     ]
     content = models.TextField(null=True)
     weight = models.FloatField(null=False, default=0.1)
@@ -53,8 +52,12 @@ class Question(models.Model):
 
 
 class Survey(models.Model):
-    score = models.FloatField(null=False)
-
+    
     school = models.ForeignKey('school.School', on_delete=models.CASCADE, null=True, related_name='school')
-    question_id = models.ForeignKey('Question', on_delete=models.CASCADE)
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=True, related_name='user')
+
+class Response(models.Model):
+
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    score = models.FloatField(null=False)
+    question = models.ForeignKey('Question', on_delete=models.CASCADE)

@@ -1,19 +1,40 @@
-from .models import Survey, Question
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import SurveySerializer, QuestionSerializer
+from .models import Survey, Question, Response
+from rest_framework import generics, permissions
+from .serializers import SurveySerializer, QuestionSerializer, ResponseSerializer
 
 # Create your views here.
-#
-class SurveyViewSet(viewsets.ModelViewSet):
+
+
+class QuestionView(generics.ListAPIView):
+
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+
+        type = self.request.user.position
+        # print(self.request.user.school)
+        # print('hi')
+        return Question.objects.filter(type=type)
+
+
+class SurveyView(generics.ListCreateAPIView):
 
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
 
-    # def perform_create(self, serializer):
+    def perform_create(self, serializer):
+        user = self.request.user
+        school = user.school
+        
+        serializer.save(school=school, user=user)
 
+# class ResponseView(generics.ListCreateAPIView):
 
-class QuestionViewSet(viewsets.ModelViewSet):
+#     queryset = Response.objects.all()
+#     serializer_class = ResponseSerializer
 
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+    # def get_queryset(self):
+
+    #     type = self.request.user.position
+        
+    #     return Question.objects.filter(type=type)

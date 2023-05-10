@@ -12,8 +12,6 @@ class QuestionView(generics.ListAPIView):
     def get_queryset(self):
 
         type = self.request.user.position
-        # print(self.request.user.school)
-        # print('hi')
         return Question.objects.filter(type=type)
 
 

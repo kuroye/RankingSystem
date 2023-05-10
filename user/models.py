@@ -42,7 +42,7 @@ class User(AbstractUser):
 
     position = models.CharField(max_length=1, choices=POSITION)
     email = models.CharField(max_length=254, unique=True, blank=False, null=False)
-    school = models.OneToOneField(School, on_delete=models.CASCADE, blank=True, null=True)
+    school = models.ForeignKey(School, on_delete=models.CASCADE, blank=True, null=True)
 
     objects = UserManager()
 

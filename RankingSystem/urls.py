@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 # from survey.views import SurveyViewSet, QuestionViewSet
-from school.views import SchoolViewSet
+# from school.views import SchoolViewSet
 # from user.views import UserViewSet
 
 from rest_framework import permissions
@@ -52,6 +52,7 @@ urlpatterns = [
     # path("api/", include(router.urls)),
     path('api/auth/', include('user.urls')),
     path('api/survey/', include('survey.urls')),
+    path('api/school/', include('school.urls')),
 
     # path("", include(router.urls)),
     # path('swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),

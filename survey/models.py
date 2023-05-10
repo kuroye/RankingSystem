@@ -11,10 +11,8 @@ class IndicatorI(models.Model):
     title = models.CharField(max_length=128, null=True)
     weight = models.FloatField(null=False)
 
-    # level = models.CharField(max_length=1, null=False, choices=LEVEL)
 
     def __str__(self):
-        # return self.name + ' | ' + self.level + ' | ' + str(self.weight*100) + '%'
         return self.title + ' | ' + str(self.weight * 100) + '%'
 
 

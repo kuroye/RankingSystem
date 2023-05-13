@@ -121,36 +121,53 @@ class ResultView(APIView):
             "parent": []
         }
 
-        school_list = [] 
 
-        for survey in survey_list:
-            
+        school_list = function.get_school_list(School,SchoolSerializer)
 
-            # for school in school_list:
-            #     if school["school_id"] != survey["school_id"]
-            # school_list.append(response_final_score_dict)
+        school_list_with_result = []
 
-            responses = function.get_responses_from_survey(survey) 
+        #获取每个学校
+        for school in school_list:
 
-            nested_dict = function.make_nested_dict(indicator_modules)
+            response_final_score_dict = {
+            "school_id": school['id'], 
+            "student": [],
+            "teacher": [],
+            "parent": []
+        }
+            #获取所有问卷 遍历每个问卷
+            for survey in survey_list:
+                
+                if survey["school_id"] == school['id']:
+              
+                #获取问卷的所有回答
 
-            calculation_dict = function.add_score_to_nested_dict(nested_dict,responses)
+                    responses = function.get_responses_from_survey(survey) 
 
-            calculation_dict = function.add_weight_to_nested_dict(calculation_dict, indicator_modules)
+                    nested_dict = function.make_nested_dict(indicator_modules)
 
-            final_score_for_one_user = function.calculate_final_score(nested_dict)
+                    calculation_dict = function.add_score_to_nested_dict(nested_dict,responses)
+
+                    #获取用于计算的字典
+                    calculation_dict = function.add_weight_to_nested_dict(calculation_dict, indicator_modules)
+
+                    #计算并获取最后分数
+                    final_score_for_one_user = function.calculate_final_score(nested_dict)
 
 
-            response_final_score_dict["school_id"] = survey["school_id"]
+                    # response_final_score_dict["school_id"] = survey["school_id"]
 
-            if responses[0]["question"]["type"] == "S":
-                response_final_score_dict["student"].append(final_score_for_one_user)
+                    if responses:
+                        if responses[0]["question"]["type"] == "S":
+                            response_final_score_dict["student"].append(final_score_for_one_user)
 
-            elif responses[0]["question"]["type"] == "T":
-                response_final_score_dict["teacher"].append(final_score_for_one_user)
+                        elif responses[0]["question"]["type"] == "T":
+                            response_final_score_dict["teacher"].append(final_score_for_one_user)
 
-            elif responses[0]["question"]["type"] == "P":
-                response_final_score_dict["parent"].append(final_score_for_one_user)
-        return Response(data=mydict, status=status.HTTP_200_OK)
+                        elif responses[0]["question"]["type"] == "P":
+                            response_final_score_dict["parent"].append(final_score_for_one_user)
+
+            school_list_with_result.append(response_final_score_dict)
+        return Response(data=school_list_with_result, status=status.HTTP_200_OK)
 
 

@@ -4,7 +4,10 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.password_validation import validate_password
+from rest_framework.exceptions import AuthenticationFailed
+from school.serializers import SchoolSerializer
 from .models import POSITION 
+
 
 User = get_user_model()
 
@@ -37,8 +40,11 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             data['username'] = user.username
             data['email'] = user.email
             data['position'] = user.position
-            data['school'] = user.school
-            # ...
+            if user.school:
+                data['school'] = SchoolSerializer(user.school).data
+            else:
+                data['school'] = None 
+            # ... 
 
             return data
 
@@ -71,7 +77,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'password2', 'email', 'position', 'token')
+        fields = ('id', 'username', 'password', 'password2', 'email', 'position', 'token')
         extra_kwargs = {
             'username': {'required': True},
             'position': {'required': True}

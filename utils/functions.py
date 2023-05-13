@@ -3,6 +3,14 @@
 
 class Function:
 
+    #获取所有学校
+    def get_school_list(self, SchoolModel, SchoolSerializer):
+        model = SchoolModel.objects.all()
+        serializer = SchoolSerializer(model, many=True)
+        school_list = serializer.data
+
+        return school_list
+
     #根据Serializer获得所有数据
     def get_all_survey(self, SurveyModel, SurveySerializer):
         model = SurveyModel.objects.all()
@@ -156,7 +164,7 @@ class Function:
     def add_weight_to_nested_dict(self, calculation_dict, modules):
 
         for ind1 in calculation_dict:
-            print(ind1, "---")
+            # print(ind1, "---")
             if ind1 != "weight":
                 weight1 = self.get_weight(modules["Ind1"], int(ind1))
             
@@ -164,7 +172,7 @@ class Function:
                     calculation_dict[ind1]["weight"] = weight1 
 
             for ind2 in calculation_dict[ind1]:
-                print(ind2, "!!")
+                # print(ind2, "!!")
 
                 
                 if ind2 != "weight":
@@ -176,7 +184,7 @@ class Function:
                 if isinstance(calculation_dict[ind1][ind2], dict):
                     for ind3 in calculation_dict[ind1][ind2]:
 
-                        print(ind3,"#")
+                        # print(ind3,"#")
             
                         if ind3 != "weight":
                             weight3 = self.get_weight(modules["Ind3"], int(ind3))

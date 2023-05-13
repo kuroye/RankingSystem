@@ -16,14 +16,14 @@ class IndicatorIISerializer(serializers.ModelSerializer):
     Indicator1 = serializers.SerializerMethodField()
     
     class Meta:
-        model = IndicatorII
+        model = IndicatorII  
         fields = ['id', 'title', 'weight', 'IndicatorI']
 
     def to_representation(self, instance):
 
         indicator1 = IndicatorI.objects.filter(pk=instance.IndicatorI.id).first()
 
-        print(indicator1)
+        # print(indicator1)
         indicator1_data = IndicatorISerializer(indicator1).data
 
 

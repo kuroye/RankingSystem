@@ -140,7 +140,7 @@ class ResultView(APIView):
                 
                 if survey["school_id"] == school['id']:
               
-                #获取问卷的所有回答
+                    #获取问卷的所有回答
 
                     responses = function.get_responses_from_survey(survey) 
 
@@ -154,8 +154,6 @@ class ResultView(APIView):
                     #计算并获取最后分数
                     final_score_for_one_user = function.calculate_final_score(nested_dict)
 
-
-                    # response_final_score_dict["school_id"] = survey["school_id"]
 
                     if responses:
                         if responses[0]["question"]["type"] == "S":

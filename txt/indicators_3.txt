@@ -1,14 +1,12 @@
-The qualities of a teacher through the eyes of a student|0.5|Assessment of teaching staff|
-Teacher qualification|0.5|Assessment of teaching staff|
-School grounds safety|0.5|Assessment of the educational environment|
-School facilities|0.5|Assessment of the educational environment|
+The qualities of a teacher|1|Assessment of teaching staff|
+The qualities of a students|1|Assessment of student staff|
+School grounds safety|0.3|Assessment of the educational environment|
+Equipment and facilities of school premises|0.3|Assessment of the educational environment|
+Comfort in the school|0.2|Assessment of the educational environment|
+Attitude to the health of students|0.2|Assessment of the educational environment|
+Attitude to the health of teachers|0.2|Assessment of the educational environment|
 Average UNT score|1|Evaluation of the preparation of students for the UNT|
-Teaching method|0.7|Assessment of the education system|
-How many years of education|0.3|Assessment of the education system|
-Internal social life|0.3|Assessment of social life|
+Teaching method|1|Assessment of the education system|
+Internal social life|0.7|Assessment of social life|
 External social life|0.3|Assessment of social life|
-Student self-assessment|0.2|Assessment of social life|
-Classroom hours|0.2|Assessment of social life|
-Opportunity to form a club|0.5|Evaluation of club activities|
-Active club activity|0.2|Evaluation of club activities|
-Financing of clubs/circles|0.3|Evaluation of club activities|
+Opportunities for clubs|1|Evaluation of club activities|

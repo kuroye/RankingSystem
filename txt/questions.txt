@@ -1,22 +1,88 @@
-Is the teacher an educator|0.25|S|The qualities of a teacher through the eyes of a student|
-Attention to the difficult student|0.15|S|The qualities of a teacher through the eyes of a student|
-Teacher time management (How much time the teacher misses, how quickly he checks assignments)|0.25|S|The qualities of a teacher through the eyes of a student|
-Teacher approaches (Explains, gives presentations, teaches through practice?)|0.25|T|The qualities of a teacher through the eyes of a student|
-Relationship with parents|0.1|P|The qualities of a teacher through the eyes of a student|
-Teacher error rate|0.6|S|Teacher qualification|
-Qualification category|0.4|T|Teacher qualification|
-Protection|0.2|P|School grounds safety|
-CPR|0.2|P|School grounds safety|
-Fire safety|0.2|S|School grounds safety|
-Video surveillance|0.25|S|School grounds safety|
-Bullying|0.15|S|School grounds safety|
-Quality of desks, boards?|0.2|S|School facilities|
-Availability of scientific equipment (meters, flasks, microscopes)|0.2|T|School facilities|
-Availability of sports equipment|0.15|T|School facilities|
-Availability of computers in computer science classes|0.2|T|School facilities|
-Availability of Internet active boards|0.15|T|School facilities|
-Internet connection|0.1|S|School facilities|
-What is your attitude towards your surroundings?|0.5|S|Internal social life|
-Student government|0.5|S|Internal social life|
-Camps for students|0.5|S|External social life|
-School cultural trips|0.5|S|External social life|
+How equally does the teacher pay attention between difficult and capable students?|0.2|S|The qualities of a teacher|
+How well do teachers cope with the allocation of lesson time? (For example, are they late or absent from lessons)|0.25|S|The qualities of a teacher|
+Are teacher's lessons monotonous? (If the teacher is only lecturing, select 0. If the teacher tries to explain lesson in his own words, gives examples and gives practical tasks, choose from 1 to 9+)|0.15|S|The qualities of a teacher|
+How good is the relationship between teachers and parents?|0.1|S|The qualities of a teacher|
+How often the teacher makes mistakes during the lesson? (If the teacher makes mistakes often, select 0. If teacher makes mistakes rare, choose from 1 to 9+)|0.3|S|The qualities of a teacher|
+How well do students take the initiative in your subject?|0.4|T|The qualities of a students|
+How well are students doing with the allocation of time for lessons?|0.2|T|The qualities of a students|
+How well do stdents behave in class? (Complies with the norms, do not break the rules or do not be rude)|0.4|T|The qualities of a students|
+How well secured and save is the school? (For example, the presence of security or checking people who entered the school)|0.1|S|School grounds safety|
+How many rooms from the list are equipped with CCTV cameras? (School yard, entrances and exits, corridors, classrooms, canteen, library, laboratory, studio, gym, playground, workshop)|0.1|S|School grounds safety|
+Assess the readiness of the school in case of fire danger? (For example, evacuations training or the availability of fire equipment)|0.1|S|School grounds safety|
+Have you been vaccinated without parental consent at your school? (If so, select 0. If not, select 9+)|0.15|S|School grounds safety|
+How safe is it to leave things in the wardrobe?|0.2|S|School grounds safety|
+How often have you noticed bullying on school grounds? (If often, select 0. If not often, select from 1 to 9+)|0.05|S|School grounds safety|
+How much were you forcibly attracted to religion on school grounds? (If often, select 0. If not often, select from 1 to 9+)|0.05|S|School grounds safety|
+How much alcohol, tobacco products or drugs are common on school grounds? (If often, select 0. If not often, select from 1 to 9+)|0.1|S|School grounds safety|
+How much do terrorism, discrimination and other topics that generate violence promoted on school ground? (If often, select 0. If not often select from 1 to 9+)|0.1|S|School grounds safety|
+How often have there been cases of epidemic outbreaks? (If often, select 0. If not often, select from 1 to 9+)|0.05|S|School grounds safety|
+How well secured and save is the school? (For example, the presence of security or checking people who entered the school)|0.2|T|School grounds safety|
+How many rooms from the list are equipped with CCTV cameras? (School yard, entrances and exits, corridors, classrooms, canteen, library, laboratory, studio, gym, playground, workshop)|0.1|T|School grounds safety|
+Assess the readiness of the school in case of fire danger? (For example, evacuations training or the availability of fire equipment)|0.2|T|School grounds safety|
+How safe is it to leave things in the wardrobe?|0.2|T|School grounds safety|
+How often have you noticed bullying on school grounds? (If often, select 0. If not often, select from 1 to 9+)|0.1|T|School grounds safety|
+How often have there been cases of epidemic outbreaks? (If often, select 0. If not often, select from 1 to 9+)|0.2|T|School grounds safety|
+How many classrooms from the list does your school have? (Library, assembly hall, dining room, chemistry laboratory, physics laboratory, biology laboratory, work equipment workshop, technology room, gym, lawn field, sports ground, school yard, music studio, art studio)|0.25|S|Equipment and facilities of school premises|
+How many offices from the list are allowed access outside the schedule time? (Library, assembly hall, dining room, chemistry laboratory, physics laboratory, biology laboratory, technology room, gym, lawn field, sports ground, school yard, music studio, art studio)|0.25|S|Equipment and facilities of school premises|
+Evaluate the quality of personal lockers in your school? (If there are no lockers, select 0)|0.1|S|Equipment and facilities of school premises|
+How much equipment from this list can the school provide you with? (Textbooks, notebooks, computers, projectors, blackboards, free meals, free bus rides, internet access, scientific equipment, sports equipment)|0.25|S|Equipment and facilities of school premises|
+How well is the school prepared for distance learning?|0.15|S|Equipment and facilities of school premises|
+How many classrooms from the list does your school have? (Library, assembly hall, dining room, chemistry laboratory, physics laboratory, biology laboratory, work equipment workshop, technology room, gym, lawn field, sports ground, school yard, music studio, art studio)|0.2|T|Equipment and facilities of school premises|
+How much equipment from this list can the school provide you with? (Textbooks, notebooks, computers, projectors, blackboards, free meals, free bus rides, internet access, scientific equipment, sports equipment)|0.3|T|Equipment and facilities of school premises|
+How well is the school prepared for distance learning?|0.1|T|Equipment and facilities of school premises|
+How convenient is your personal teacher's office? (If there is no cabinet, select 0)|0.2|T|Equipment and facilities of school premises|
+How well does the school compensate for the extra hours of work? (Surcharges or academic. vacation)|0.2|T|Equipment and facilities of school premises|
+How comfortable is it possible to study outside of school hours?|0.25|S|Comfort in the school|
+How comfortable is the temperature in the rooms? (Select from 0 to 9+, depending on heat or cold)|0.15|S|Comfort in the school|
+How comfortable is the lighting in the rooms? (Select from 0 to 9+, depending on brightness or darkness)|0.15|S|Comfort in the school|
+How comfortable is the sound in the rooms? (Select from 0 to 9+, depending on noise level)|0.15|S|Comfort in the school|
+How comfortable is the air in the rooms? (Select from 0 to 9+, depending on smells that disrupting lessons)|0.15|S|Comfort in the school|
+How comfortable are the school desks and chairs? (For example, not too crowded, or can they be moved)|0.15|S|Comfort in the school|
+How comfortable is it possible to study outside of school hours?|0.25|T|Comfort in the school|
+How comfortable is the temperature in the rooms? (Select from 0 to 9+, depending on heat or cold)|0.15|T|Comfort in the school|
+How comfortable is the lighting in the rooms? (Select from 0 to 9+, depending on brightness or darkness)|0.15|T|Comfort in the school|
+How comfortable is the sound in the rooms? (Select from 0 to 9+, depending on noise level)|0.15|T|Comfort in the school|
+How comfortable is the air in the rooms? (Select from 0 to 9+, depending on smells that disrupting lessons)|0.15|T|Comfort in the school|
+How comfortable are the school desks and chairs? (For example, not too crowded, or can they be moved)|0.15|T|Comfort in the school|
+How well school promote a healthy lifestyle (HLS)?|0.2|S|Attitude to the health of students|
+How well medical center can provide help in a critical situation? (For example, equipment or prepared nurses)|0.3|S|Attitude to the health of students|
+How seriously are medical examinations taken at your school? (If not, select 0. If quick inspection are being carried out, select 5. If you are sent to a polyclinic for a full examination, choose 9+)|0.2|S|Attitude to the health of students|
+Does your school provide a break between classes of sufficient duration for food and outdoor activities? (If there is no break, select 0. If there is a break, choose 9+)|0.3|S|Attitude to the health of students|
+How well medical center can provide help in a critical situation? (For example, equipment or prepared nurses)|0.4|T|Attitude to the health of teachers|
+How seriously are medical examinations taken at your school? (If not, select 0. If quick inspection are being carried out, select 5. If you are sent to a polyclinic for a full examination, choose 9+)|0.2|T|Attitude to the health of teachers|
+Does your school provide a break between classes of sufficient duration for food and outdoor activities? (If there is no break, select 0. If there is a break, choose 9+)|0.4|T|Attitude to the health of teachers|
+Average UNT score? Everyone get 100% (It is not question)|1|S|Average UNT score|
+Average UNT score? Everyone get 100% (It is not question)|1|T|Average UNT score|
+How many types of tasks from the list present in the lessons? (Research task, creative task, viewing video materials, listening audio materials, homework, practical lesson, presentation, group task, pair task)|0.1|S|Teaching method|
+How strict are school schedules? (If not strictly, select 0)|0.1|S|Teaching method|
+How strict are school uniforms at your school? (If not strictly, select 0)|0.1|S|Teaching method|
+Is there a deduction system in your school? (If deduction system is not provided, select 0. If provided, select 9+)|0.1|S|Teaching method|
+How often you get useful stories or career advice from your teachers?|0.2|S|Teaching method|
+How evenly does the school allow you to combine your personal life and study? (If the school loads you a lot of extracurricular time tasks, select 0)|0.25|S|Teaching method|
+Is there a psychologist in the school staff? (If there is no psychologist, select 0. If a psychologist is present, choose from 1 to 9+ depending on psychologist's ability to help increase motivation to study, concentration and other useful things)|0.15|S|Teaching method|
+How often do you manage to plan the curriculum together with other school leaders? (Other teachers, the principals or his deputies)|0.2|T|Teaching method|
+How many types of tasks from the list present in the lessons? (Research task, creative task, viewing video materials, listening audio materials, homework, practical lesson, presentation, group task, pair task)|0.1|T|Teaching method|
+How strict are school schedules? (If not strictly, select 0)|0.2|T|Teaching method|
+How strict are school uniforms at your school? (If not strictly, select 0)|0.2|T|Teaching method|
+Is there a deduction system in your school? (If deduction system is not provided, select 0. If provided, select 9+)|0.1|T|Teaching method|
+How often does the school conduct various programs dedicated to the promotion of teacher qualifications?|0.2|T|Teaching method|
+How friendly is your school environment? (Classmates, teachers, staff)|0.1|S|Internal social life|
+How much student self-government is allowed to influence the life of the school? (If there is no student self-government, select 0)|0.1|S|Internal social life|
+How often are competitions such as a reading contest or the creation videos held on school ground? (If there are no competitions, select 0. If the competitions are held, select from 1 to 9+ depending on the frequency of the competitions)|0.2|S|Internal social life|
+Whether students are rewarded for academic, scientific, or creative achievements? (If not rewarded, select 0)|0.1|S|Internal social life|
+Does school provide classroom-educational hours? (If not, select 0. If provided, select from 1 to 9+, depending on the number of hours)|0.2|S|Internal social life|
+How responsible are the electives at your school?|0.2|S|Internal social life|
+Is there a psychologist in the school staff? (If there is no psychologist, select 0. If a psychologist is present, choose from 1 to 9+ depending on psychologist's ability to help student social adapt)|0.1|S|Internal social life|
+How friendly is your school environment? (Students, teachers, staff)|0.4|T|Internal social life|
+How often are competitions such as a reading contest or the creation videos held on school ground? (If there are no competitions, select 0. If the competitions are held, select from 1 to 9+ depending on the frequency of the competitions)|0.2|T|Internal social life|
+Whether teachers are rewarded for their student's academic, scientific, or creative achievements? (If not rewarded, select 0)|0.2|T|Internal social life|
+How responsible are the electives at your school?|0.2|T|Internal social life|
+Are there camps for students at your school? (If there are no camps, select 0. If there are camps, select from 1 to 9+ depending on the number and quality of different camps)|0.3|S|External social life|
+How often do school cultural trips take place|0.4|S|External social life|
+How often are competitions such as a reading contest or the creation of videos outside the school? (If there are no competitions, select 0. If the competitions are held, choose from 1 to 9+ depending on the frequency of the competitions)|0.3|S|External social life|
+How strongly does the school oblige you to conduct school cultural trips with students|0.6|T|External social life|
+How often are you allowed to supervise or prepare students for competitions such as a reading contest or the creation of videos outside the school? (If there are no competitions, select 0. If the competitions are held regular, choose from 1 to 9+ depending on the frequency of the competitions)|0.4|T|External social life|
+Is it possible to create a club or a circle in your school? (If not possible, select 0)|0.4|S|Opportunities for clubs|
+How well can a school fund clubs? (If the school allocates an office for the club or funds for certain events, equipment, choose from 1 to 9+)|0.2|S|Opportunities for clubs|
+How active can clubs be at school? (For example, to conduct school events or organize or participate in competitions)|0.4|S|Opportunities for clubs|
+Clubs possibilities? Everyone get 100% (It is not question)|1|T|Opportunities for clubs|

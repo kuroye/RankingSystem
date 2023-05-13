@@ -36,7 +36,10 @@ class CategoryCountView(APIView):
         }
         return Response(data=categories, status=status.HTTP_200_OK)
 
-
+class SchoolView(generics.ListAPIView):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+    permission_classes = [permissions.AllowAny]
 class ResultView(APIView):
 
     # queryset = School.objects.all()
@@ -110,7 +113,44 @@ class ResultView(APIView):
         
         nested_dict = function.add_weight_to_nested_dict(calculation_dict, indicator_modules)
         mydict = function.calculate_final_score(nested_dict)
-        
+
+        response_final_score_dict = {
+            "school_id": 0, 
+            "student": [],
+            "teacher": [],
+            "parent": []
+        }
+
+        school_list = [] 
+
+        for survey in survey_list:
+            
+
+            # for school in school_list:
+            #     if school["school_id"] != survey["school_id"]
+            # school_list.append(response_final_score_dict)
+
+            responses = function.get_responses_from_survey(survey) 
+
+            nested_dict = function.make_nested_dict(indicator_modules)
+
+            calculation_dict = function.add_score_to_nested_dict(nested_dict,responses)
+
+            calculation_dict = function.add_weight_to_nested_dict(calculation_dict, indicator_modules)
+
+            final_score_for_one_user = function.calculate_final_score(nested_dict)
+
+
+            response_final_score_dict["school_id"] = survey["school_id"]
+
+            if responses[0]["question"]["type"] == "S":
+                response_final_score_dict["student"].append(final_score_for_one_user)
+
+            elif responses[0]["question"]["type"] == "T":
+                response_final_score_dict["teacher"].append(final_score_for_one_user)
+
+            elif responses[0]["question"]["type"] == "P":
+                response_final_score_dict["parent"].append(final_score_for_one_user)
         return Response(data=mydict, status=status.HTTP_200_OK)
 
 

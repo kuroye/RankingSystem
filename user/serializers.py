@@ -19,7 +19,31 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    pass
+    def validate(self, attrs):
+        
+        try:
+        # 首先调用父类的 validate() 方法验证用户凭证
+            data = super().validate(attrs)
+
+            # 判断用户是否被禁用
+            if not self.user.is_active:
+                raise serializers.ValidationError('User is not active')
+
+        
+            # 获取用户信息
+            user = self.user or self.username_field.get_user(self.validated_data[self.username_field])
+            # 在返回的字典中添加用户数据
+            data['id'] = user.id
+            data['username'] = user.username
+            data['email'] = user.email
+            data['position'] = user.position
+            data['school'] = user.school
+            # ...
+
+            return data
+
+        except AuthenticationFailed:
+            raise serializers.ValidationError('Email or password was wrong')
 
 
 class RegisterSerializer(serializers.ModelSerializer):

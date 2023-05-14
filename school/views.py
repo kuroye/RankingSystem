@@ -42,8 +42,6 @@ class SchoolView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
 class ResultView(APIView):
 
-    # queryset = School.objects.all()
-    # serializer_class = ResultSerializer
     permission_classes=[permissions.AllowAny]
     authentication_classes = ()
 
@@ -51,53 +49,9 @@ class ResultView(APIView):
         function = Function()
 
         survey_serializer = SurveySerializer
-        response_serializer = ResponseSerializer
-        question_model = Question
         survey_list = function.get_all_survey(Survey, survey_serializer)
-        result=[]
 
-        #有好多问卷，遍历每个问卷
-        for survey in survey_list:
 
-            #一个问卷里有好多答案，从问卷里获取 这是一个人的回答
-            responses = function.get_responses_from_survey(survey) 
-
-            #遍历好多答案
-            for response in responses:
-
-                pass
-                # #根据答案获取 分数 问题 占比
-
-                # #回答分数
-                # responsed_socre = function.get_score(response)
-                # #问题
-                # question = function.get_question(response)
-                # #问题占比
-                # question_weight = function.get_weight(question)
-
-                # #单个问题相乘占比后的的分数
-                # question_score = function.multiply_weight(
-                #     responsed_socre,
-                #     question_weight
-                # )
-
-                
-
-                
-
-                # result.append(question)
-        # for survey in survey_list:
-
-        #     responses = function.calculate_final_score(survey)
-        #     indIII_score = []
-
-        #     for response in responses.get('result'):
-
-        #         indicator_III_score = (response.get('score')) * function.get_weight(
-        #             question_model,response)
-        #         indIII_score.append(indicator_III_score)
-
-        #     result.append(indIII_score)
              
         indicator_modules = {
                             "Ind1":IndicatorI,
@@ -108,18 +62,10 @@ class ResultView(APIView):
 
          
         
-        nested_dict = function.make_nested_dict(indicator_modules)
-
-        calculation_dict = function.add_score_to_nested_dict(nested_dict, survey_list[-1]["responses"])
-        
-        nested_dict = function.add_weight_to_nested_dict(calculation_dict, indicator_modules)
-        mydict = function.calculate_final_score(nested_dict)
 
         response_final_score_dict = {
             "school_id": 0, 
             "user": [],
-            # "teacher": [],
-            # "parent": []
         }
 
 
@@ -174,9 +120,10 @@ class ResultView(APIView):
         for school_result in school_list_with_result:
             school_unsorted_by_score_list.append(function.calculate_average(school_result))
 
+        #获取所有学校的评分平均数
         C = function.get_all_schools_avg(school_unsorted_by_score_list)
         
-
+        # 添加bayes分数
         for school in school_unsorted_by_score_list:
             school['bayes_result'] = function.bayes_theorem(school, C)
         

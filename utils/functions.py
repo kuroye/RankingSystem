@@ -14,13 +14,12 @@ class Function:
 #     weighted rating (WR) = (v ÷ (v+m)) × R + (m ÷ (v+m)) × C
     def bayes_theorem(self, school_info, C):
 
-        print("$$$$$", school_info)
         R = self.calculate_average(school_info)['avg_score']
         v = len(school_info['user'])
         m = 1
         weighted_rating = (v / (v+m)) * R + (m / (v+m)) * C
 
-        return weighted_rating
+        return round(weighted_rating, 2)
 
     def get_all_schools_avg(self, school_list):
         sum_of_shool_avg_score = 0
@@ -30,14 +29,13 @@ class Function:
 
     def calculate_average(self, school_info):
 
-        print(school_info)
         user_scores = school_info['user']
 
 
         if len(user_scores) != 0:
             user_avg = sum(user_scores) / len(user_scores)
         else:
-            print("No user scores available to calculate average.")
+            # print("No user scores available to calculate average.")
             user_avg = 0  # You can assign any default value
 
        
@@ -75,8 +73,7 @@ class Function:
 
     #获取一个人的所有答案
     def get_responses_from_survey(self, survey):
-        
-        # print(survey)
+
         responses = survey.get("responses")
 
         return responses
@@ -112,29 +109,12 @@ class Function:
     def sum_of_multiplied_score(self, score_list):
        return sum(score_list)
 
-    # def make_list_of_same_indicator(self, IndicatorModule):
 
-        
-    #     calculation_dict = {
-    #     }
-
-    #     all_indicator = IndicatorModule.objects.all()
-    #     for indicator in all_indicator:
-
-    #         calculation_dict[str(indicator.id)] = {
-    #         }
-
-    #     # all_indicator2 = Indicator2Module.objects.all()
-    #     # for indicator2 in all_indicator2:
-
-    #         # calculation_dict[str(indicator1.id)]["hello"] = {} 
     #     # [1,2,3]
     #     # 1 = {1.A, 1.B}
     #     # 1.A = {1.Aa, 1.Ab}
     #     # 1.Aa = {Q1,Q2,Q3}
-        
 
-    #     return calculation_dict
 
     def make_nested_dict(self, indicator_modules):
         """

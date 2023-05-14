@@ -15,7 +15,7 @@ class QuestionView(generics.ListAPIView):
         return Question.objects.filter(type=type)
 
 
-class SurveyView(generics.ListCreateAPIView):
+class SurveyView(generics.CreateAPIView):
 
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer

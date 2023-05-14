@@ -16,7 +16,9 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscription
-        fields = ('id','school_id')
+        fields = ('id','user_id','school_id')
+        read_only_fields = ('user_id',)
+
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)

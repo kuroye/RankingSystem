@@ -39,7 +39,17 @@ class AllUserView(generics.ListAPIView):
     permission_classes = (permissions.IsAdminUser,)
 
 
-class SubscriptionView(generics.GenericAPIView):
+class SubscriptionView(generics.CreateAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = (IsAdminUserOrSelf,)
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        
+        serializer.save(user_id=user)
+
+class UnsubscriptionView(generics.DestroyAPIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    permission_classes = (permissions.IsAuthenticated)

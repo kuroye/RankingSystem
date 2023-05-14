@@ -52,4 +52,4 @@ class SubscriptionView(generics.CreateAPIView):
 class UnsubscriptionView(generics.DestroyAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
-    permission_classes = (permissions.IsAuthenticated)
+    permission_classes = (permissions.IsAuthenticated,)

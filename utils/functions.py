@@ -3,6 +3,51 @@
 
 class Function:
 
+#     R 是学校的平均评分，即所有用户对该电影的评分的平均值。
+
+#     v 是该学校获得的投票数，也就是评分的数量。
+
+#     m 是必要的最小投票数，学校的评分数必须达到这个数目才会在榜单中被公开显示。这个数字由 管理员 设定，以防止小样本的评分在榜单中占据优势。
+
+#     C 是所有学校的平均评分的平均值。
+
+#     weighted rating (WR) = (v ÷ (v+m)) × R + (m ÷ (v+m)) × C
+    def bayes_theorem(self, school_info, C):
+
+        print("$$$$$", school_info)
+        R = self.calculate_average(school_info)['avg_score']
+        v = len(school_info['user'])
+        m = 1
+        weighted_rating = (v / (v+m)) * R + (m / (v+m)) * C
+
+        return weighted_rating
+
+    def get_all_schools_avg(self, school_list):
+        sum_of_shool_avg_score = 0
+        for school in school_list:
+            sum_of_shool_avg_score += school['avg_score'] 
+        return sum_of_shool_avg_score / len(school_list)
+
+    def calculate_average(self, school_info):
+
+        print(school_info)
+        user_scores = school_info['user']
+
+
+        if len(user_scores) != 0:
+            user_avg = sum(user_scores) / len(user_scores)
+        else:
+            print("No user scores available to calculate average.")
+            user_avg = 0  # You can assign any default value
+
+       
+        return {
+            'school': school_info['school'],
+            'user': school_info['user'],
+            'avg_score': user_avg
+        }
+
+   
     #获取所有学校
     def get_school_list(self, SchoolModel, SchoolSerializer):
         model = SchoolModel.objects.all()

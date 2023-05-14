@@ -45,6 +45,7 @@ class ResultView(APIView):
     # queryset = School.objects.all()
     # serializer_class = ResultSerializer
     permission_classes=[permissions.AllowAny]
+    authentication_classes = ()
 
     def get(self, request):
         function = Function()
@@ -116,9 +117,9 @@ class ResultView(APIView):
 
         response_final_score_dict = {
             "school_id": 0, 
-            "student": [],
-            "teacher": [],
-            "parent": []
+            "user": [],
+            # "teacher": [],
+            # "parent": []
         }
 
 
@@ -130,10 +131,10 @@ class ResultView(APIView):
         for school in school_list:
 
             response_final_score_dict = {
-            "school_id": school['id'], 
-            "student": [],
-            "teacher": [],
-            "parent": []
+            "school": SchoolSerializer(school).data , 
+            "user": [],
+            # "teacher": [],
+            # "parent": []
         }
             #获取所有问卷 遍历每个问卷
             for survey in survey_list:
@@ -156,16 +157,36 @@ class ResultView(APIView):
 
 
                     if responses:
-                        if responses[0]["question"]["type"] == "S":
-                            response_final_score_dict["student"].append(final_score_for_one_user)
+                        # if responses[0]["question"]["type"] == "S":
+                        response_final_score_dict["user"].append(final_score_for_one_user)
 
-                        elif responses[0]["question"]["type"] == "T":
-                            response_final_score_dict["teacher"].append(final_score_for_one_user)
+                        # elif responses[0]["question"]["type"] == "T":
+                            # response_final_score_dict["teacher"].append(final_score_for_one_user)
 
-                        elif responses[0]["question"]["type"] == "P":
-                            response_final_score_dict["parent"].append(final_score_for_one_user)
+                        # elif responses[0]["question"]["type"] == "P":
+                        #     response_final_score_dict["parent"].append(final_score_for_one_user)
 
             school_list_with_result.append(response_final_score_dict)
-        return Response(data=school_list_with_result, status=status.HTTP_200_OK)
+
+
+        school_unsorted_by_score_list = []
+        # 遍历学校结果添加到数组
+        for school_result in school_list_with_result:
+            school_unsorted_by_score_list.append(function.calculate_average(school_result))
+
+        C = function.get_all_schools_avg(school_unsorted_by_score_list)
+        
+
+        for school in school_unsorted_by_score_list:
+            school['bayes_result'] = function.bayes_theorem(school, C)
+        
+        # 使用sorted()函数进行排序
+        school_sorted_by_score_list = sorted(
+            school_unsorted_by_score_list, key=lambda x: x['bayes_result'], reverse=True)
+        
+        # 添加排名
+        for i, d in enumerate(school_sorted_by_score_list, start=1):
+            d['rank'] = i
+        return Response(data=school_sorted_by_score_list, status=status.HTTP_200_OK)
 
 

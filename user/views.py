@@ -2,11 +2,11 @@ from rest_framework import viewsets
 from rest_framework import generics, permissions
 
 from rest_framework_simplejwt.views import TokenObtainPairView
-from .serializers import UserSerializer, RegisterSerializer, CustomTokenObtainPairSerializer
+from .serializers import UserSerializer, RegisterSerializer, CustomTokenObtainPairSerializer, SubscriptionSerializer
 from utils import auth
 from django.contrib.auth import get_user_model
 
-
+from .models import Subscription
 from rest_framework.permissions import AllowAny
 from .permissions import IsAdminUserOrSelf 
 
@@ -37,3 +37,9 @@ class AllUserView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
+
+class SubscriptionView(generics.GenericAPIView):
+    queryset = Subscription.objects.all()
+    serializer_class = SubscriptionSerializer
+    permission_classes = (IsAdminUserOrSelf,)

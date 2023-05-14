@@ -6,20 +6,34 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.exceptions import AuthenticationFailed
 from school.serializers import SchoolSerializer
-from .models import POSITION 
+from .models import POSITION, Subscription
 
 
 User = get_user_model()
 
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+
+class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
+        model = Subscription
+        fields = ('id','school_id')
+
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+    
+    class Meta:
         model = User
-        fields = ('id', 'email', 'password', 'username', 'position','school')
+        fields = ('id', 'email', 'password', 'username', 'position','school',)
         read_only_fields = ('id',)
 
-
+    def to_representation(self, instance):
+        subscription = Subscription.objects.filter(user_id=instance.id)
+        print(subscription)
+        
+        subscription = [SubscriptionSerializer(subs).data for subs in subscription ]
+        user_data = super().to_representation(instance)
+        user_data['subscription'] = subscription
+        return user_data
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):

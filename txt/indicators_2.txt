@@ -1,5 +1,4 @@
-Assessment of student staff|0.3|Conditions for obtaining a quality education|
-Assessment of teaching staff|0.3|Conditions for obtaining a quality education|
+Assessment of staff|0.3|Conditions for obtaining a quality education|
 Assessment of the educational environment|0.7|Conditions for obtaining a quality education|
 Evaluation of the preparation of students for the UNT|0.2|Level of preparation of competitive graduates|
 Assessment of the education system|0.8|Level of preparation of competitive graduates|

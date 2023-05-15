@@ -1,10 +1,8 @@
-The qualities of a teacher|1|Assessment of teaching staff|
-The qualities of a students|1|Assessment of student staff|
+The qualities of a staff|1|Assessment of staff|
 School grounds safety|0.3|Assessment of the educational environment|
 Equipment and facilities of school premises|0.3|Assessment of the educational environment|
 Comfort in the school|0.2|Assessment of the educational environment|
-Attitude to the health of students|0.2|Assessment of the educational environment|
-Attitude to the health of teachers|0.2|Assessment of the educational environment|
+Attitude to the health|0.2|Assessment of the educational environment|
 Average UNT score|1|Evaluation of the preparation of students for the UNT|
 Teaching method|1|Assessment of the education system|
 Internal social life|0.7|Assessment of social life|

@@ -144,14 +144,22 @@ class ResultView(APIView):
 
         #检查是否订阅
         user = request.user
+        print('###########', user, user.is_authenticated)
         if user.is_authenticated:
             user_data = UserSerializer(user).data
             for school in school_sorted_by_score_list:
-                for subs in user_data['subscription']:
+                # print(' user_data[subscription]: ',  user_data['subscription'])
+                # print('school[school][id]: ', school['school']['id'])
+                if user_data['subscription']:
+                    for subs in user_data['subscription']:
+                        # print(type(school['school']['id']), type(subs['school_id']))
                         if school['school']['id'] == subs['school_id']:
                             school['is_subscripted'] = True
                         else:
                             school['is_subscripted'] = False
+                else:
+                    school['is_subscripted'] = False
+                    
         else:
             for school in school_sorted_by_score_list:
                 school['is_subscripted'] = False

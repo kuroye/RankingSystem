@@ -7,6 +7,8 @@ from utils.functions import Function
 from survey.models import Survey, Question, IndicatorI, IndicatorII, IndicatorIII
 from survey.serializers import SurveySerializer, ResponseSerializer, QuestionSerializer
 from django.db.models import Max
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from user.serializers import UserSerializer
 
 # Create your views here.
 #
@@ -42,10 +44,12 @@ class SchoolView(generics.ListAPIView):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
     permission_classes = [permissions.AllowAny]
+
 class ResultView(APIView):
 
+    authentication_classes = [JWTAuthentication,]
     permission_classes=[permissions.AllowAny]
-    authentication_classes = ()
+    
 
     def get(self, request):
         function = Function()
@@ -138,6 +142,20 @@ class ResultView(APIView):
         for i, d in enumerate(school_sorted_by_score_list, start=1):
             d['rank'] = i
 
+        #检查是否订阅
+        user = request.user
+        if user.is_authenticated:
+            user_data = UserSerializer(user).data
+            for school in school_sorted_by_score_list:
+                for subs in user_data['subscription']:
+                        if school['school']['id'] == subs['school_id']:
+                            school['is_subscripted'] = True
+                        else:
+                            school['is_subscripted'] = False
+        else:
+            for school in school_sorted_by_score_list:
+                school['is_subscripted'] = False
+            
         #计算最晚时间
         latest_post = Survey.objects.all().aggregate(Max('post_time'))['post_time__max']
         

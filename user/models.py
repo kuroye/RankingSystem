@@ -55,12 +55,6 @@ class User(AbstractUser):
 
 
 
-class Notification(models.Model):
-
-    content = models.TextField(null=True)
-
-    user_id = models.ForeignKey('User', on_delete=models.CASCADE)
-
 class Subscription(models.Model):
 
     user_id = models.ForeignKey('User', on_delete=models.CASCADE)

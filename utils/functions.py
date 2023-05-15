@@ -64,6 +64,8 @@ class Function:
 
 
 
+    def has_ever_passed_survey(self, Survey, user_id):
+        return Survey.objects.filter(user=user_id).exists()
     #获取单个卷子
     def get_a_survey(self, survey_list):
         

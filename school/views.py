@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from utils.functions import Function
 from survey.models import Survey, Question, IndicatorI, IndicatorII, IndicatorIII
 from survey.serializers import SurveySerializer, ResponseSerializer, QuestionSerializer
+from django.db.models import Max
+
 # Create your views here.
 #
 # class SchoolViewSet(viewsets.ModelViewSet):
@@ -112,6 +114,7 @@ class ResultView(APIView):
                         # elif responses[0]["question"]["type"] == "P":
                         #     response_final_score_dict["parent"].append(final_score_for_one_user)
 
+
             school_list_with_result.append(response_final_score_dict)
 
 
@@ -134,6 +137,11 @@ class ResultView(APIView):
         # 添加排名
         for i, d in enumerate(school_sorted_by_score_list, start=1):
             d['rank'] = i
-        return Response(data=school_sorted_by_score_list, status=status.HTTP_200_OK)
+
+        #计算最晚时间
+        latest_post = Survey.objects.all().aggregate(Max('post_time'))['post_time__max']
+        
+        return Response(data={'ranking':school_sorted_by_score_list,
+        'latest_post_time': latest_post}, status=status.HTTP_200_OK)
 
 

@@ -104,7 +104,7 @@ class SurveySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Survey
-        fields = ['id', 'user', 'school', 'responses' ]
+        fields = ['id', 'user', 'school', 'responses', 'post_time']
         read_only_fields = ['id', 'user', 'school']
         
 
@@ -119,7 +119,8 @@ class SurveySerializer(serializers.ModelSerializer):
             'survey_id': instance.id,
             'user_id': instance.user.id,
             'school_id': instance.school.id,
-            'responses': response_data
+            'responses': response_data,
+            'post_time': instance.post_time
         }
         # return super().to_representation(instance)
 

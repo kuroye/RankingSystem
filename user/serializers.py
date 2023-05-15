@@ -7,6 +7,8 @@ from django.contrib.auth.password_validation import validate_password
 from rest_framework.exceptions import AuthenticationFailed
 from school.serializers import SchoolSerializer
 from .models import POSITION, Subscription
+from utils.functions import Function
+from survey.models import Survey
 
 
 User = get_user_model()
@@ -29,12 +31,15 @@ class UserSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
     def to_representation(self, instance):
+        function = Function()
+
         subscription = Subscription.objects.filter(user_id=instance.id)
-        print(subscription)
         
         subscription = [SubscriptionSerializer(subs).data for subs in subscription ]
         user_data = super().to_representation(instance)
         user_data['subscription'] = subscription
+        user_data['has_ever_passed_survey'] = function.has_ever_passed_survey(Survey, instance.id)
+
         return user_data
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -43,6 +48,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         try:
         # 首先调用父类的 validate() 方法验证用户凭证
             data = super().validate(attrs)
+            function = Function()
 
             # 判断用户是否被禁用
             if not self.user.is_active:
@@ -61,7 +67,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             else:
                 data['school'] = None 
             # ... 
-
+            data['has_ever_passed_survey'] = function.has_ever_passed_survey(Survey, user.id)
+        
             return data
 
         except AuthenticationFailed:

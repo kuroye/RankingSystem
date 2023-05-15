@@ -53,6 +53,7 @@ class Survey(models.Model):
     
     school = models.ForeignKey('school.School', on_delete=models.CASCADE, null=True, related_name='school')
     user = models.ForeignKey('user.User', on_delete=models.CASCADE, null=True, related_name='user')
+    post_time = models.DateTimeField(auto_now_add=True)
 
 class Response(models.Model):
 

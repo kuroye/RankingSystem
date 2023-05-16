@@ -41,9 +41,15 @@ class CategoryCountView(APIView):
         return Response(data=categories, status=status.HTTP_200_OK)
 
 class SchoolView(generics.ListAPIView):
-    queryset = School.objects.all()
+    queryset = School.objects.filter(is_active=True)
     serializer_class = SchoolSerializer
     permission_classes = [permissions.AllowAny]
+
+class SchoolRequestView(generics.ListCreateAPIView):
+    queryset = School.objects.filter(is_active=False)
+    serializer_class = SchoolSerializer
+    permission_classes = [permissions.AllowAny]
+
 
 class ResultView(APIView):
 
@@ -154,15 +160,15 @@ class ResultView(APIView):
                     for subs in user_data['subscription']:
                         # print(type(school['school']['id']), type(subs['school_id']))
                         if school['school']['id'] == subs['school_id']:
-                            school['is_subscripted'] = True
+                            school['favorite'] = { 'is_favorite': True, 'favorite_id': subs['id'] }
                         else:
-                            school['is_subscripted'] = False
+                            school['favorite'] = { 'is_favorite': False }
                 else:
-                    school['is_subscripted'] = False
+                    school['favorite'] = { 'is_favorite': False }
                     
         else:
             for school in school_sorted_by_score_list:
-                school['is_subscripted'] = False
+                school['favorite'] = { 'is_favorite': False }
             
         #计算最晚时间
         latest_post = Survey.objects.all().aggregate(Max('post_time'))['post_time__max']

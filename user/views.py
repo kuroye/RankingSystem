@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from .models import Subscription
 from rest_framework.permissions import AllowAny
 from .permissions import IsAdminUserOrSelf 
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 

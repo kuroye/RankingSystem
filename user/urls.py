@@ -9,6 +9,6 @@ urlpatterns = [
     path('users/', AllUserView.as_view(), name='user_list'),
     path('users/<int:pk>/', UserDetailView.as_view(), name='user_detail'),
 
-    path('users/subscription/', SubscriptionView.as_view(), name='subscription'),
-    path('users/unsubscription/<int:pk>', UnsubscriptionView.as_view(), name='unsubscription')
+    # path('users/subscription/', SubscriptionView.as_view(), name='subscription'),
+    # path('users/unsubscription/<int:pk>', UnsubscriptionView.as_view(), name='unsubscription')
 ]
